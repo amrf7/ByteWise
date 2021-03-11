@@ -1,7 +1,25 @@
 // Importamos las bibliotecas necesarias
 var express = require('express'),
-    bodyParser = require('body-parser'),
-    cors = require('cors');
+bodyParser = require('body-parser'),
+cors = require('cors');
+
+/*********************** Mongoose Configuration *******************************/
+const mongoose = require("mongoose");
+
+var isProduction = process.env.NODE_ENV === 'production';
+
+mongoose.connect(
+  process.env.MONGODB_URI,
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
+);
+
+mongoose.set("debug", true);
+
+require("./models/Student");
+require("./models/Teacher");
+require('./config/passport');
+
+/*********************** Mongoose Configuration *******************************/
 
 // Objeto global de la app
 var app = express();
